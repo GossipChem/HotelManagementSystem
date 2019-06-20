@@ -1,0 +1,53 @@
+package model;
+
+public class stuffModel {
+private String Stuff_id;
+private String Stuff_name;
+private String Gender;
+private String Job;
+private String Status;
+
+public stuffModel() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public stuffModel(String stuff_id, String stuff_name, String gender, String job, String status) {
+	super();
+	Stuff_id = stuff_id;
+	Stuff_name = stuff_name;
+	Gender = gender;
+	Job = job;
+	Status = status;
+}
+public String getStuff_id() {
+	return Stuff_id;
+}
+public void setStuff_id(String stuff_id) {
+	Stuff_id = stuff_id;
+}
+public String getStuff_name() {
+	return Stuff_name;
+}
+public void setStuff_name(String stuff_name) {
+	Stuff_name = stuff_name;
+}
+public String getGender() {
+	return Gender;
+}
+public void setGender(String gender) {
+	Gender = gender;
+}
+public String getJob() {
+	return Job;
+}
+public void setJob(String job) {
+	Job = job;
+}
+public String getStatus() {
+	return Status;
+}
+public void setStatus(String status) {
+	Status = status;
+}
+
+}
