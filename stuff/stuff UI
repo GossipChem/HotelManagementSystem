@@ -1,0 +1,371 @@
+package Admin;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JTable;
+import javax.swing.border.LineBorder;
+import javax.swing.JSpinner;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.Vector;
+
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+
+import Dao.StuffDao;
+import Util.Dbutil;
+import model.stuffModel;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
+
+public class UI_stuff_info extends JFrame {
+    private Dbutil dbutil=new Dbutil();
+    private StuffDao stuffdao=new StuffDao();
+	private JPanel contentPane;
+	private final JScrollPane scrollPane = new JScrollPane();
+	private JTable table;
+	private final JPanel panel = new JPanel();
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UI_stuff_info frame = new UI_stuff_info();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 * @throws Exception 
+	 */
+	public UI_stuff_info() throws Exception {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 874, 630);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		this.setLocationRelativeTo(null);//����
+		
+		JLabel label = new JLabel("\u661F\u7EA7\u9152\u5E97");
+		label.setFont(new Font("����", Font.PLAIN, 31));
+		label.setBounds(33, 4, 140, 97);
+		contentPane.add(label);
+		
+		JLabel label_1 = new JLabel("\u7BA1\u7406\u7CFB\u7EDF");
+		label_1.setFont(new Font("����", Font.PLAIN, 31));
+		label_1.setBounds(33, 49, 140, 97);
+		contentPane.add(label_1);
+		
+		JLabel label_2 = new JLabel("\u5458\u5DE5\u4FE1\u606F");
+		label_2.setIcon(new ImageIcon(UI_stuff_info.class.getResource("/Icon/STUFF.png")));
+		label_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "���ڴ˽���");  
+			}
+		});
+		
+		label_2.setForeground(Color.BLUE);
+		label_2.setFont(new Font("����", Font.PLAIN, 20));
+		label_2.setBounds(10, 156, 168, 61);
+		contentPane.add(label_2);
+		
+		JLabel label_3 = new JLabel("\u5165\u4F4F\u4FE1\u606F");
+		label_3.setIcon(new ImageIcon(UI_stuff_info.class.getResource("/Icon/system_information_48px_1168707_easyicon.net.png")));
+		label_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				new UI_checkin_info().setVisible(true);
+			}
+		});
+		label_3.setFont(new Font("����", Font.PLAIN, 20));
+		label_3.setBounds(10, 244, 168, 61);
+		contentPane.add(label_3);
+		
+		JLabel label_4 = new JLabel("\u8D22\u52A1\u4FE1\u606F");
+		label_4.setIcon(new ImageIcon(UI_stuff_info.class.getResource("/Icon/commerce_50.40391943386px_1192919_easyicon.net.png")));
+		label_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				new UI_finance_info().setVisible(true);
+			}
+		});
+		label_4.setFont(new Font("����", Font.PLAIN, 20));
+		label_4.setBounds(10, 329, 168, 61);
+		contentPane.add(label_4);
+		
+		JLabel label_5 = new JLabel("\u623F\u95F4\u4FE1\u606F");
+		label_5.setIcon(new ImageIcon(UI_stuff_info.class.getResource("/Icon/hotel_key_53.604060913706px_1209765_easyicon.net.png")));
+		label_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+			   new UI_room_info().setVisible(true);
+			}
+		});
+		label_5.setFont(new Font("����", Font.PLAIN, 20));
+		label_5.setBounds(10, 421, 168, 61);
+		contentPane.add(label_5);
+		
+		JButton button = new JButton("\u5237\u65B0");
+		button.setBounds(558, 74, 93, 23);
+		contentPane.add(button);
+		
+		JButton button_1 = new JButton("\u4FEE\u6539");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			update();
+			}
+		});
+		button_1.setBounds(358, 542, 93, 23);
+		contentPane.add(button_1);
+		
+		JLabel label_7 = new JLabel("\u5458\u5DE5\u4FE1\u606F\u8868");
+		label_7.setFont(new Font("����", Font.PLAIN, 40));
+		label_7.setBounds(358, 0, 254, 97);
+		contentPane.add(label_7);
+		scrollPane.setBounds(236, 104, 528, 277);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				rowpress();
+			}
+		});
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"\u5DE5\u53F7", "\u5458\u5DE5\u540D", "\u6027\u522B", "\u5C97\u4F4D", "\u72B6\u6001"
+			}
+		));
+		scrollPane.setViewportView(table);
+		
+		JButton button_2 = new JButton("\u6DFB\u52A0");
+		button_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				UI_stuff_add stuffadd= new UI_stuff_add();
+				stuffadd.setVisible(true);
+				stuffadd.setLocationRelativeTo(null);
+			}
+		});
+	
+		button_2.setBounds(671, 74, 93, 23);
+		contentPane.add(button_2);
+		
+		JButton button_3 = new JButton("\u5220\u9664");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				delete();
+			}
+		});
+		button_3.setBounds(558, 542, 93, 23);
+		contentPane.add(button_3);
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\u8868\u5355\u64CD\u4F5C", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(236, 415, 528, 97);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("\u5DE5\u53F7");
+		lblNewLabel.setBounds(23, 24, 54, 15);
+		panel.add(lblNewLabel);
+		
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setBounds(89, 21, 66, 21);
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel label_6 = new JLabel("\u59D3\u540D");
+		label_6.setBounds(23, 60, 54, 15);
+		panel.add(label_6);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(89, 57, 66, 21);
+		panel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel label_8 = new JLabel("\u6027\u522B");
+		label_8.setBounds(187, 24, 54, 15);
+		panel.add(label_8);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(262, 21, 66, 21);
+		panel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel label_9 = new JLabel("\u5C97\u4F4D");
+		label_9.setBounds(187, 60, 54, 15);
+		panel.add(label_9);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(262, 57, 66, 21);
+		panel.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JLabel label_10 = new JLabel("\u72B6\u6001");
+		label_10.setBounds(361, 24, 54, 15);
+		panel.add(label_10);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(409, 21, 66, 21);
+		panel.add(textField_4);
+		textField_4.setColumns(10);
+		
+		this.initable();
+	}
+	
+	
+	public void rowpress(){
+		
+		
+		int row =table.getSelectedRow();
+		textField.setText((String)table.getValueAt(row, 0));
+		textField_1.setText((String)table.getValueAt(row, 1));
+		textField_2.setText((String)table.getValueAt(row,2));
+		textField_3.setText((String)table.getValueAt(row,3));
+		textField_4.setText((String)table.getValueAt(row,4));
+		
+	}
+	
+	
+	public void update() {
+		
+		String Stuff_id   =this.textField.getText();
+		String Stuff_name =this.textField_1.getText();
+		String Gender     =this.textField_2.getText();
+		String Job        =this.textField_3.getText();
+		String Status     =this.textField_4.getText();
+		if(Stuff_id.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "��ѡ���¼");
+			return;
+			
+		}
+		
+		stuffModel stuff=new stuffModel(Stuff_id,Stuff_name,Gender,Job,Status);
+		Connection con =null;
+		try {
+	      con =dbutil.getCon();
+	      int modifynum=stuffdao.update(con, stuff);
+	      if(modifynum==1) {
+	    	  JOptionPane.showMessageDialog(null, "�޸ĳɹ�");}
+	      else {JOptionPane.showMessageDialog(null, "�޸�ʧ��");}
+	      this.clear();
+	
+	
+		}
+		catch(Exception e ) {e.printStackTrace();}
+		
+		finally {try {
+			dbutil.close(con);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}}
+		
+		
+	}
+	public void delete() {
+		String id=textField.getText();
+		if(id.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "��ѡ���¼");
+			return;
+		}
+		int n=JOptionPane.showConfirmDialog(null, "ȷ��Ҫɾ��������¼��");
+		if(n==0)
+		{
+			
+			Connection con =null;
+			try {
+				
+				con=dbutil.getCon();
+				int delnum=stuffdao.delete(con, id);
+				if(delnum==1) {
+					JOptionPane.showMessageDialog(null, "ɾ���ɹ�");
+				/*������ʾ����д*/
+				}
+				else {JOptionPane.showMessageDialog(null, "ɾ��ʧ��");}
+				
+			}catch(Exception e) {e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "ɾ��ʧ��");}
+			finally {}
+		}
+		
+		
+	}
+	
+	;
+	private void initable() throws Exception {
+		DefaultTableModel dtm=(DefaultTableModel)table.getModel();
+		dtm.setRowCount(0);
+		Connection con=null;
+		try {
+			con=dbutil.getCon();
+			ResultSet rs =StuffDao.list(con);
+			while(rs.next()) {
+				Vector v=new Vector();
+				v.add(rs.getString("Stuff_id"));
+				v.add(rs.getString("Stuff_name"));
+				v.add(rs.getString("Gender"));
+				v.add(rs.getString("Job"));
+				v.add(rs.getString("Status"));
+				dtm.addRow(v);
+			}
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally{
+			dbutil.close(con);}
+		
+		
+	}
+	
+	
+	public void clear() {
+	this.textField_4.setText("");
+	this.textField_3.setText("");
+	this.textField_2.setText("");
+	this.textField_1.setText("");
+	this.textField.setText("");
+	}
+	
+	
+}
