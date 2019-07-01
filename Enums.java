@@ -9,9 +9,9 @@ public class Enums {
 	}
 	
 	public static enum GENDER{
-		MALE("ÄĞ"),
-		FEMALE("Å®"),
-		SECRET("±£ÃÜ");
+		MALE("ç”·"),
+		FEMALE("å¥³"),
+		SECRET("ä¿å¯†");
 		
 		private String gender;
 		
@@ -23,20 +23,16 @@ public class Enums {
 			return gender;
 		}
 		
-		public static GENDER getGender(int i) {
+		public static GENDER getGender(String gender) {
 			GENDER result = null;
-			switch(i) {
-			case 0:
+			if(gender.equals("ç”·")) {
 				result = MALE;
-				break;
-			case 1:
+			}
+			else if(gender.equals("å¥³")){
 				result = FEMALE;
-				break;
-			case 2:
+			}
+			else {
 				result = SECRET;
-				break;
-			default:
-				break;
 			}
 			return result;
 		}
@@ -55,3 +51,4 @@ public class Enums {
 		SUCCESS
 	}
 }
+
