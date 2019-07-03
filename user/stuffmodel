@@ -1,0 +1,44 @@
+package model;
+
+public class userModel {
+
+	private String Stuff_name;
+
+	private String password;
+	private String Job;
+	public userModel() {
+		super();
+
+	}
+	public userModel(String stuff_name, String password,String job) {
+		super();
+		this.Stuff_name = stuff_name;
+		this.password = password;
+		this.Job=job;
+	}
+
+	public String getStuff_name() {
+		return Stuff_name;
+	}
+
+	public void setStuff_name(String stuff_name) {
+		Stuff_name = stuff_name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getJob() {
+		return Job;
+	}
+	public void setJob(String job) {
+		Job = job;
+	}
+	
+	
+	
+}
